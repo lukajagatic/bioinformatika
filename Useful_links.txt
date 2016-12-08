@@ -1,0 +1,14 @@
+Some useful links:
+OLC:
+http://www.cs.jhu.edu/~langmea/resources/lecture_notes/assembly_olc.pdf
+FASTA format:
+https://en.wikipedia.org/wiki/FASTA_format
+Alati za generiranje preklapanja svih očitanja :
+	minimap: https://github.com/lh3/minimap
+	GraphMap: https://github.com/isovic/graphmap
+Alati za evaluaciju:
+Gepard: https://github.com/univieCUBE/gepard
+Cytoscape: http://www.cytoscape.org/
+
+Implementacija best overlap graph(Bogart):
+	Canu: https://github.com/marbl/canu
