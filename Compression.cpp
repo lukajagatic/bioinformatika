@@ -39,15 +39,6 @@ void parseMhap() {
 			brid->readA = atoi(list[0].c_str());
 			brid->readB = atoi(list[1].c_str());
 
-			calculateEdge(atoi(list[4].c_str()), atoi(list[5].c_str()),
-					atoi(list[6].c_str()), atoi(list[7].c_str()),
-					atoi(list[8].c_str()), atoi(list[9].c_str()),
-					atoi(list[10].c_str()), atoi(list[11].c_str()),
-					atoi(list[0].c_str()), atoi(list[1].c_str()), brid);
-
-			checkOrientation(atoi(list[4].c_str()), atoi(list[8].c_str()),
-					brid);
-
 			data->putEdge(brid);
 			data->makeNeighbors(brid->readA, brid->readB);
 
