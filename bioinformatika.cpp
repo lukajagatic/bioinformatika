@@ -3,7 +3,7 @@
 // Author      : Luka Jagatic, Marko Gudelj, Simon Knezevic
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C, Ansi-style
+// Description : Projekt iz bioinformatike
 //============================================================================
 
 #include <string>
