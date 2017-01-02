@@ -17,6 +17,46 @@
 #include <fstream>
 
 using namespace std;
+
+void split(const std::string &s, char delim, std::vector<std::string> &elems) {
+	std::stringstream ss;
+	ss.str(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+}
+
+vector<std::string> split(string &s, char delim) {
+	vector<string> elems;
+	split(s, delim, elems);
+	return elems;
+}
+
+void read(string input_file, float error_treshold) {
+	ifstream myfile(input_file.c_str());
+	string line;
+
+	if (myfile.is_open()) {
+
+		int i = 0;
+
+		while (getline(myfile, line)) {
+			i++;
+			vector<string> tokens = split(line, ' ');
+			if (atof(tokens[2].c_str()) > error_treshold) {
+				cout << tokens[2].c_str() << '\n';
+			}
+
+		}
+		myfile.close();
+
+	}
+
+	else
+		cout << "Unable to open file";
+}
+
 int main(int argc, char *argv[]) {
 	//start mjerenja
 	double start = clock();
@@ -26,32 +66,16 @@ int main(int argc, char *argv[]) {
 	for (unsigned int i = 0; i < argc; i++) {
 		if (i == 1) {
 			input_file += argv[i];
-			if (input_file.substr(input_file.find_last_of(".") + 1) != "fa")
-				throw runtime_error("Input fa files allowed");
+			if (input_file.substr(input_file.find_last_of(".") + 1) != "mhap")
+				throw runtime_error("Input mhap files allowed");
 		}
-		if (i == 2) {
-			output_file += argv[i];
-			if (output_file.substr(output_file.find_last_of(".") + 1) != "mhap")
-				throw runtime_error("Output only in mhap");
-		}
-		if (i > 2)
+		if (i > 1)
 			throw runtime_error("Too many arguments");
 	}
 
 	double lap1 = clock();
-	string command(
-			"gnome-terminal -x sh -c './graphmap/bin/Linux-x64/graphmap owler -r "
-					+ input_file + " -d " + input_file + " -o " + output_file
-					+ "'");
-	system(command.c_str());
 	double lap2 = clock();
-	string getcontent;
-	ifstream mhap_file("output.mhap");
-	if (mhap_file.is_open()) {
-		while (getline(mhap_file, getcontent)) {
-			cout << getcontent << endl;
-		}
-	}
+	read(input_file, 0.7);
 
 	// kraj mjerenja
 	double end = clock();
@@ -72,3 +96,4 @@ int main(int argc, char *argv[]) {
 	exit(0);
 
 }
+
