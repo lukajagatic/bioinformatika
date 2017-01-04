@@ -4,7 +4,7 @@ OBJS =		bioinformatika.o
 
 LIBS =
 
-TARGET =	bioinformatika
+TARGET =	bioinformatika MhapFormatter.cpp Edge.cpp
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
@@ -12,4 +12,4 @@ $(TARGET):	$(OBJS)
 all:	$(TARGET)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) bioinformatika
