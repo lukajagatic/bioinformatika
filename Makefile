@@ -4,7 +4,7 @@ OBJS =		bioinformatika.o
 
 LIBS =
 
-TARGET =	bioinformatika MhapFormatter.cpp Edge.cpp
+TARGET =	bioinformatika MhapFormatter.cpp Edge.cpp BestOverlap.cpp
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)

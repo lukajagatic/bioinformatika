@@ -7,6 +7,7 @@
 //============================================================================
 
 #include "MhapFormatter.h"
+#include "BestOverlap.h"
 #include "Edge.h"
 
 #include <stdlib.h>
@@ -17,7 +18,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
 
 	string input_file = "";
-	float error_threshold;
+	float error_threshold = 0;
 	for (unsigned int i = 0; i < argc; i++) {
 		if (i == 1) {
 			input_file += argv[i];
@@ -36,8 +37,18 @@ int main(int argc, char *argv[]) {
 	MhapFormatter *mf = new MhapFormatter;
 	mf->filter(input_file, error_threshold);
 
-	vector<Edge*> edges = mf->getEdges();
-	cout << edges[0]->error << "\n";
+	vector<Edge> edges = mf->getEdges();
+
+	BestOverlap *bo = new BestOverlap;
+	vector<Edge> ev = bo->createBestOverlap(edges);
+
+//	for (int i = 1; i < edges.size(); i++) {
+//			cout << edges[i].idA << "\t" << edges[i].idB << "\t"<< edges[i].overlapLength << "\n";
+//		}
+
+	for (int i = 1; i < ev.size(); i++) {
+		cout << ev[i].idA << "\t" << ev[i].idB << "\t"<< ev[i].overlapLength << "\n";
+	}
 
 	exit(0);
 

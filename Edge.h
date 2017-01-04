@@ -17,14 +17,18 @@ public:
 
 	int idA;
 	int idB;
-	float error; //Jaccard score
+	float error; //graphmap?
 	int numSur; //number of seeds which survived filtering
 	int aStart;
 	int aEnd;
 	int aLength;
+	int ahangPlus;
+	int ahangMinus;
 	int bStart;
 	int bEnd;
 	int bLength;
+	int bhangMinus;
+	int bhangPlus;
 	int overlapLength;
 	int orientationA;
 	int orientationB;

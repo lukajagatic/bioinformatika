@@ -21,7 +21,7 @@ public:
 	~MhapFormatter();
 
 	void filter(string, float);
-	vector<Edge*> getEdges();
+	vector<Edge> getEdges();
 };
 
 #endif /* MHAPFORMATTER_H_ */
