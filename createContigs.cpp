@@ -13,34 +13,12 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include <string>
-
+#include <algorithm>
 using namespace std;
-int main(int argc, char *argv[]) {
 
-	string input_file = "";
-	float error_threshold = 0;
-	int count = 0;
-
-	for (unsigned int i = 0; i < argc; i++) {
-		if (i == 1) {
-			input_file += argv[i];
-			if (input_file.substr(input_file.find_last_of(".") + 1) != "mhap")
-				throw runtime_error("Input mhap files allowed");
-		}
-		if (i == 2) {
-			error_threshold = atof(argv[i]);
-			if (error_threshold > 1)
-				throw runtime_error(
-						"Error threshold cannot be greater than 1!");
-		}
-		if (i > 2)
-			throw runtime_error("Too many arguments");
-	}
-	MhapFormatter *mf = new MhapFormatter;
-	mf->filter(input_file, error_threshold);
-
-	vector<Edge> ev = mf->getEdges();
-
+vector<Edge> bestContig(vector<Edge> ev) {
+	vector<Edge> evE = ev;
+	
 	//BestOverlap *bo = new BestOverlap;
 	//vector<Edge> ev = bo->createBestOverlap(edges);
 
@@ -48,35 +26,54 @@ int main(int argc, char *argv[]) {
 	//int startP = ev[0].idA;
 	//contig.insert(contig.begin(), startP);
 	
-	for (int startP = 0; startP < 157; startP++) {
+	vector< vector<Edge> > contigList;
+	vector<Edge> longestContig;
+
+	for (int startP = 0; startP < ev[ev.size()].idA; startP++) {
 		vector<int> contig;
+		vector<Edge> contigE;
 		contig.insert(contig.begin(), startP);
 
 		for (int i = 0; i < ev.size(); i++) {
 
 			if(ev[i].idA == contig[contig.size()-1] and ev[i].bhangMinus < ev[i].bhangPlus) { // idB je desno od contiga
-				contig.insert(contig.end(), ev[i].idB);
+				if (std::find(contig.begin(), contig.end(), ev[i].idB) == contig.end()) {
+					// someName not in name, add it
+					contig.insert(contig.end(), ev[i].idB);
+				}
 				//cout << ev[i].idA << ev[i].idB << "\n";
 				ev.erase(ev.begin()+i);
 				i--;
 			}
 
 			if(ev[i].idA == contig[0] and ev[i].bhangMinus > ev[i].bhangPlus) { // idB je lijevo od contiga
-				contig.insert(contig.begin(), ev[i].idB);
+				if (std::find(contig.begin(), contig.end(), ev[i].idB) == contig.end()) {
+					// someName not in name, add it
+					contig.insert(contig.begin(), ev[i].idB);
+				}
+				
 				//cout << ev[i].idA << ev[i].idB << "\n";
 				ev.erase(ev.begin()+i);
 				i--;
 			}
 
 			if(ev[i].idB == contig[contig.size()-1] and ev[i].ahangMinus < ev[i].ahangPlus) { // idA je desno od contiga
-				contig.insert(contig.end(), ev[i].idA);
+				if (std::find(contig.begin(), contig.end(), ev[i].idA) == contig.end()) {
+					// someName not in name, add it
+					contig.insert(contig.end(), ev[i].idA);
+				}
+				
 				//cout << ev[i].idA << ev[i].idB << "\n";
 				ev.erase(ev.begin()+i);
 				i--;
 			}
 
 			if(ev[i].idB == contig[0] and ev[i].ahangMinus > ev[i].ahangPlus) { // idA je lijevo od contiga
-				contig.insert(contig.begin(), ev[i].idA);
+				if (std::find(contig.begin(), contig.end(), ev[i].idA) == contig.end()) {
+					// someName not in name, add it
+					contig.insert(contig.begin(), ev[i].idA);
+				}
+				
 				//cout << ev[i].idA << ev[i].idB << "\n";
 				ev.erase(ev.begin()+i);
 				i--;
@@ -90,24 +87,56 @@ int main(int argc, char *argv[]) {
 				<< "\t" << ev[i].overlapLength << "\t" << ev[i].orientationA << "\t" << ev[i].orientationB <<"\n";*/
 	
 		}
-	//}
+	
 
-		for (int i = 0; i < contig.size(); i++) {
+		/*for (int i = 0; i < contig.size(); i++) {
+			
 			cout << contig[i] << "\t";
 		}
-		cout << "\n";
+		cout << "\n";*/
+
+		for (int i = 0; i < contig.size(); i++) {
+			for (int j = 0; j < evE.size(); j++) {
+				if (contig[i] < contig[i + 1] && evE[j].idA == contig[i]
+						&& evE[j].idB == contig[i + 1])
+					contigE.push_back(evE[j]);
+				else if (contig[i + 1] < contig[i] && evE[j].idA == contig[i + 1]
+						&& evE[j].idB == contig[i])
+					contigE.push_back(evE[j]);
+
+			}
+		}
+
+		contigList.push_back(contigE);
+
+		/*for (int i = 0; i < contigE.size(); i++) {
+			
+			cout << contigE[i].idA << "|" << contigE[i].idB << "|";
+		}
+		cout << "\n";*/
 
 	}
 
-/*
-	cout << "idA" << "\t" << "idB" << "\t" << "aStart" << "\t" << "aEnd" << "\t" << "aLength" 
-			<< "\t" << "ahangPlus" << "\t" << "ahangMinus"
-			<< "\t" << "bStart" << "\t" << "bEnd" << "\t" << "bLength" << "\t" << "bhangPlus" 
-			<< "\t" << "bhangMinus" 
-			<< "\t" << "overlapLength" << "\t" << "orientationA" << "\t" << "orientationB" <<"\n";
-*/
+	
+	//cout << "Number of contigs:" << contigList.size() << "\n";
+	
+	int size = 0;
+	for (int i = 0; i < contigList.size(); i++) {
 
-	exit(0);
+		//cout << contigList[i].size() << "\n";
+		if(contigList[i].size() >= size) {
+			longestContig = contigList[i];
+			size = contigList[i].size();
+		}
+	}
+	
+	//ispisi navecu kontigu
+	/*for (int i = 0; i < longestContig.size(); i++) {
+		
+		cout << longestContig[i].idA << "|" << longestContig[i].idB << "|";
+	}
+	cout << "\n";*/
 
+	return longestContig;
 }
 
