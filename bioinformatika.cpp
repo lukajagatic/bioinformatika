@@ -42,11 +42,14 @@ int main(int argc, char *argv[]) {
 	BestOverlap *bo = new BestOverlap;
 	vector<Edge> ev = bo->createBestOverlap(edges);
 
-
-	for (int i = 0; i < ev.size(); i++) {
-		cout << ev[i].idA << "\t" << ev[i].idB << "\t" << ev[i].overlapLength
-				<< "\t" << ev[i].ahangMinus << "\t" << ev[i].ahangPlus << "\n";
-	}
+//	for (int i = 0; i < ev.size(); i++) {
+//		cout << ev[i].idA << " " << ev[i].idB << " " << ev[i].error << " "
+//				<< ev[i].numSur << " " << ev[i].orientationA << " "
+//				<< ev[i].aStart << " " << ev[i].aEnd << " "
+//				<< ev[i].orientationB << " " << ev[i].bStart << " "
+//				<< ev[i].bEnd << " " << ev[i].bLength << "\n";
+//	}
+	bo->createContigs(ev, 0);
 
 	exit(0);
 
