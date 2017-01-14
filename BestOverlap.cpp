@@ -123,10 +123,10 @@ vector<Edge> BestOverlap::createContigs(vector<Edge> ev, int x) {
 		}
 	}
 
-//	for (int i = 0; i < contigE.size(); i++) {
-//		cout << contigE[i].idA << "\t" << contigE[i].idB << "\t";
-//	}
-//	cout<<"\n";
+	for (int i = 0; i < contigE.size(); i++) {
+		cout << contigE[i].idA << "\t" << contigE[i].idB << "\t";
+	}
+	cout<<"\n";
 //
 //	for (int i = 0; i < contig.size(); i++) {
 //		cout << contig[i] << "\t";
