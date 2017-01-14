@@ -77,7 +77,7 @@ vector<Edge> BestOverlap::createBestOverlap(vector<Edge> edges) {
 	return ev;
 }
 
-void BestOverlap::createContigs(vector<Edge> ev, int x) {
+vector<Edge> BestOverlap::createContigs(vector<Edge> ev, int x) {
 	vector<int> contig;
 	vector<Edge> contigE;
 	int startP = ev[x].idA;
@@ -123,12 +123,14 @@ void BestOverlap::createContigs(vector<Edge> ev, int x) {
 		}
 	}
 
-	for (int i = 0; i < contigE.size(); i++) {
-		cout << contigE[i].idA << "\t" << contigE[i].idB << "\n";
-	}
-
-	for (int i = 0; i < contig.size(); i++) {
-		cout << contig[i] << "\t";
-	}
+//	for (int i = 0; i < contigE.size(); i++) {
+//		cout << contigE[i].idA << "\t" << contigE[i].idB << "\t";
+//	}
+//	cout<<"\n";
+//
+//	for (int i = 0; i < contig.size(); i++) {
+//		cout << contig[i] << "\t";
+//	}
+	return contigE;
 }
 

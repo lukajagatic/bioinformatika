@@ -9,10 +9,12 @@
 #include "MhapFormatter.h"
 #include "BestOverlap.h"
 #include "Edge.h"
+#include "ContigMaker.h"
 
 #include <stdlib.h>
 #include <stdexcept>
 #include <string>
+#include <map>
 
 using namespace std;
 int main(int argc, char *argv[]) {
@@ -49,8 +51,20 @@ int main(int argc, char *argv[]) {
 //				<< ev[i].orientationB << " " << ev[i].bStart << " "
 //				<< ev[i].bEnd << " " << ev[i].bLength << "\n";
 //	}
-	bo->createContigs(ev, 0);
+	map<int, vector<Edge> > kontizi;
+	for (int var = 0; var < ev.size(); var++) {
+		if (ev[var].idA != ev[var + 1].idA) {
+			vector<Edge> edgv = bo->createContigs(ev, var);
+			kontizi.insert(
+					pair<int, vector<Edge> >(var, bo->createContigs(ev, var)));
+		}
 
+	}
+	std::map<int, vector<Edge> >::iterator it1;
+
+	for (it1 = kontizi.begin(); it1 != kontizi.end(); it1++) {
+		std::cout << it1->second.data()->idA<< '\n';
+	}
 	exit(0);
 
 }

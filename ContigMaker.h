@@ -1,7 +1,7 @@
 
 
-#ifndef CONTIGMAKER_H
-#define CONTIGMAKER_H
+#ifndef CONTIGMAKER_H_
+#define CONTIGMAKER_H_
 #include<vector>
 #include <string>
 #include "Edge.h"
