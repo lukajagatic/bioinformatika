@@ -26,9 +26,9 @@ vector<Edge> BestOverlap::createBestOverlap(vector<Edge> edges) {
 		if (e2.idA == e1.idA) {
 			if ((e2.ahangMinus > e2.ahangPlus)
 					&& (e2.ahangMinus > e2.aLength / 20)) {
-				if ((e2.bhangMinus > e2.bhangPlus
+				if (((e2.bhangMinus > e2.bhangPlus)
 						&& (e2.bhangMinus > e2.bLength / 20))
-						|| (e2.bhangMinus < e2.bhangPlus
+						|| ((e2.bhangMinus < e2.bhangPlus)
 								&& (e2.bhangPlus > e2.bLength / 20))) {
 
 					if (e2.overlapLength > maxL) {
@@ -40,9 +40,9 @@ vector<Edge> BestOverlap::createBestOverlap(vector<Edge> edges) {
 			} else if ((e2.ahangMinus < e2.ahangPlus)
 					&& (e2.ahangPlus > e2.aLength / 20)) {
 
-				if ((e2.bhangMinus > e2.bhangPlus
+				if (((e2.bhangMinus > e2.bhangPlus)
 						&& (e2.bhangMinus > e2.bLength / 20))
-						|| (e2.bhangMinus < e2.bhangPlus
+						|| ((e2.bhangMinus < e2.bhangPlus)
 								&& (e2.bhangPlus > e2.bLength / 20))) {
 
 					if (e2.overlapLength > maxR) {
@@ -57,7 +57,11 @@ vector<Edge> BestOverlap::createBestOverlap(vector<Edge> edges) {
 				ev.push_back(edL);
 			if (maxR != 0)
 				ev.push_back(edR);
-			if (e2.ahangMinus > e2.ahangPlus) {
+			if ((e2.ahangMinus > e2.ahangPlus)
+					&& (((e2.bhangMinus > e2.bhangPlus)
+							&& (e2.bhangMinus > e2.bLength / 20))
+							|| ((e2.bhangMinus < e2.bhangPlus)
+									&& (e2.bhangPlus > e2.bLength / 20)))) {
 				if ((e2.ahangMinus > e2.aLength / 20)) {
 					maxL = e2.overlapLength;
 					edL = e2;
@@ -65,7 +69,11 @@ vector<Edge> BestOverlap::createBestOverlap(vector<Edge> edges) {
 					maxL = 0;
 				maxR = 0;
 			} else {
-				if ((e2.ahangPlus > e2.aLength / 20)) {
+				if ((e2.ahangPlus > e2.aLength / 20)
+						&& (((e2.bhangMinus > e2.bhangPlus)
+								&& (e2.bhangMinus > e2.bLength / 20))
+								|| ((e2.bhangMinus < e2.bhangPlus)
+										&& (e2.bhangPlus > e2.bLength / 20)))) {
 					maxR = e2.overlapLength;
 					edR = e2;
 				} else
@@ -126,7 +134,7 @@ vector<Edge> BestOverlap::createContigs(vector<Edge> ev, int x) {
 	for (int i = 0; i < contigE.size(); i++) {
 		cout << contigE[i].idA << "\t" << contigE[i].idB << "\t";
 	}
-	cout<<"\n";
+	cout << "\n";
 //
 //	for (int i = 0; i < contig.size(); i++) {
 //		cout << contig[i] << "\t";
