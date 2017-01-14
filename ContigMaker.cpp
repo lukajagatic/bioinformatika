@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <Edge.h>
+#include "Edge.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ ContigMaker::ContigMaker()
 
 ContigMaker::~ContigMaker()
 {
-    //dtor
+
 }
 vector<string> reads;
 
