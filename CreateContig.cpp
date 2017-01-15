@@ -9,6 +9,14 @@
 #include <algorithm>
 using namespace std;
 
+CreateContig::CreateContig() {
+
+}
+
+CreateContig::~CreateContig() {
+
+}
+
 vector<Edge> CreateContig::bestContig(vector<Edge> ev) {
 	vector<Edge> evE = ev;
 
@@ -128,11 +136,11 @@ vector<Edge> CreateContig::bestContig(vector<Edge> ev) {
 	}
 
 	//ispisi navecu kontigu
-	/*for (int i = 0; i < longestContig.size(); i++) {
+	for (int i = 0; i < longestContig.size(); i++) {
 
-	 cout << longestContig[i].idA << "|" << longestContig[i].idB << "|";
-	 }
-	 cout << "\n";*/
+		cout << longestContig[i].idA << "|" << longestContig[i].idB << "|";
+	}
+	cout << "\n";
 
 	return longestContig;
 }

@@ -1,6 +1,7 @@
 #ifndef CREATECONTIG_H_
 #define CREATECONTIG_H_
-#include<vector>
+
+#include <vector>
 #include <string>
 #include "Edge.h"
 using namespace std;
