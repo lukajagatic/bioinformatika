@@ -72,33 +72,33 @@ string SequenceMaker::makeSequence(string corr_reads, vector<Edge> bridovi) {
 
 	int idCenter = 0;
 	Edge pbrid;
-	string pcontig1;
-	string pcontig2;
+
+	string pcontig;
 
 	loadReads(corr_reads);
 
 	pbrid = bridovi[idCenter];
-	pcontig1 = reads[pbrid.idA - 1];
-	sequence = pcontig1;
+	pcontig = reads[pbrid.idA - 1];
+	sequence = pcontig;
 
-	pcontig2 = reads[pbrid.idB - 1];
+	pcontig = reads[pbrid.idB - 1];
 
 	while (true) {
-
+			cout << "\n  aHangMinus:" << pbrid.ahangMinus << " aHangPlus:" << pbrid.ahangPlus << endl;
 		if (pbrid.ahangMinus > pbrid.ahangPlus) {
-		/*	cout << "Spajam lijevo" << pbrid.idA << "+" << pbrid.idB;
+			cout << "Spajam Desno" << pbrid.idA << "+" << pbrid.idB << endl;
 			if (pbrid.orientationB == 1) {
-				sequence = rComplement(pcontig2.substr(0, pbrid.bStart)) + sequence;
+				sequence += rComplement(pcontig.substr(0, pbrid.bStart)) ;
 			} else {
-				sequence = pcontig2.substr(pbrid.bEnd, pbrid.bLength) + sequence;
-			}*/
+				sequence += pcontig.substr(pbrid.bEnd, pbrid.bLength) ;
+			}
 		} else {
-			cout << "Spajam desno" << pbrid.idA << "+" << pbrid.idB << endl;
+			cout << "Spajam Lijevo" << pbrid.idA << "+" << pbrid.idB << endl;
 
 			if (pbrid.orientationB == 1) {
-				sequence += rComplement(pcontig2.substr(0, pbrid.bStart));
+				sequence = rComplement(pcontig.substr(pbrid.bEnd, pbrid.bLength)) + sequence;
 			} else {
-				sequence += pcontig2.substr(pbrid.bEnd, pbrid.bLength);
+				sequence = pcontig.substr(0, pbrid.bStart) + sequence;
 			}
 		}
 		idCenter++;
@@ -106,40 +106,8 @@ string SequenceMaker::makeSequence(string corr_reads, vector<Edge> bridovi) {
 			break;
 		}
 		pbrid = bridovi[idCenter];
-		pcontig2 = reads[pbrid.idB - 1];
+		pcontig = reads[pbrid.idB - 1];
 	}
-
-	idCenter = 0;
-	pbrid = bridovi[idCenter];
-	pcontig2 = reads[pbrid.idB - 1];
-	while (true) {
-
-			if (pbrid.ahangMinus > pbrid.ahangPlus) {
-
-				if (pbrid.orientationB == 1) {
-					sequence = rComplement(pcontig2.substr(0, pbrid.bStart)) + sequence;
-				} else {
-					sequence = pcontig2.substr(pbrid.bEnd, pbrid.bLength) + sequence;
-				}
-			} else {
-				/*cout << "Spajam desno" << pbrid.idA << "+" << pbrid.idB << endl;
-
-				if (pbrid.orientationB == 1) {
-					sequence += rComplement(pcontig2.substr(0, pbrid.bStart));
-				} else {
-					sequence += pcontig2.substr(pbrid.bEnd, pbrid.bLength);
-				}
-				*/
-			}
-
-
-			idCenter++;
-			if(idCenter == bridovi.size() ){
-				break;
-			}
-			pbrid = bridovi[idCenter];
-			pcontig2 = reads[pbrid.idB - 1];
-		}
 
 	return sequence;
 }
