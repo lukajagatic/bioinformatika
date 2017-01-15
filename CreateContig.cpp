@@ -17,7 +17,7 @@ CreateContig::~CreateContig() {
 
 }
 
-vector<Edge> CreateContig::bestContig(vector<Edge> ev) {
+vector< vector<Edge> > CreateContig::bestContig(vector<Edge> ev) {
 	vector<Edge> evE = ev;
 
 	//BestOverlap *bo = new BestOverlap;
@@ -124,24 +124,23 @@ vector<Edge> CreateContig::bestContig(vector<Edge> ev) {
 	}
 
 	//cout << "Number of contigs:" << contigList.size() << "\n";
-
-	int size = 0;
+	vector< vector<Edge> > bestList;
+	int size = 5;
 	for (int i = 0; i < contigList.size(); i++) {
 
 		//cout << contigList[i].size() << "\n";
 		if (contigList[i].size() >= size) {
-			longestContig = contigList[i];
-			size = contigList[i].size();
+			bestList.push_back(contigList[i]);
 		}
 	}
 
 	//ispisi navecu kontigu
-	for (int i = 0; i < longestContig.size(); i++) {
+	/*for (int i = 0; i < longestContig.size(); i++) {
 
 		cout << longestContig[i].idA << "|" << longestContig[i].idB << "|";
 	}
-	cout << "\n";
+	cout << "\n";*/
 
-	return longestContig;
+	return bestList;
 }
 

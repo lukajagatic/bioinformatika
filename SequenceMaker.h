@@ -8,12 +8,12 @@
 using namespace std;
 
 
-class ContigMaker
+class SequenceMaker
 {
     public:
-    	ContigMaker();
-        virtual ~ContigMaker();
-        string makeContigs(string, vector<Edge>);
+    	SequenceMaker();
+        virtual ~SequenceMaker();
+        string makeSequence(string, vector<Edge>);
         string rComplement(string);
         void loadReads(string);
 

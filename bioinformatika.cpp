@@ -9,9 +9,9 @@
 #include "MhapFormatter.h"
 #include "BestOverlap.h"
 #include "Edge.h"
-#include "ContigMaker.h"
+#include "SequenceMaker.h"
 #include "CreateContig.h"
-
+#include <fstream>
 #include <stdlib.h>
 #include <stdexcept>
 #include <string>
@@ -53,7 +53,43 @@ int main(int argc, char *argv[]) {
 //				<< ev[i].bEnd << " " << ev[i].bLength << "\n";
 //	}
 	CreateContig *cc = new CreateContig;
-	vector<Edge> bestContig = cc->bestContig(ev);
+	vector<vector<Edge> > bestContig = cc->bestContig(ev);
+
+
+	SequenceMaker maker;
+	string sequence;
+	string corr_reads;
+
+
+
+	corr_reads ="lambda_corrected_reads.fasta";
+	vector<string> str;
+	str.push_back("\"sequence1.fasta\"");
+	str.push_back("\"sequence2.fasta\"");
+	str.push_back("\"sequence3.fasta\"");
+	str.push_back("\"sequence4.fasta\"");
+	str.push_back("\"sequence5.fasta\"");
+	str.push_back("\"sequence6.fasta\"");
+	str.push_back("\"sequence7.fasta\"");
+	str.push_back("\"sequence8.fasta\"");
+	str.push_back("\"sequence9.fasta\"");
+	str.push_back("\"sequence10.fasta\"");
+
+
+	for(int i=0; i< bestContig.size(); i++){
+		ofstream myfile1(str[i].c_str());
+		sequence = maker.makeSequence(corr_reads,bestContig[i]);
+			myfile1 << "> idd=1 \n";
+			myfile1 << sequence;
+			myfile1.close();
+	}
+
+
+
+
+
+
+
 	exit(0);
 
 }

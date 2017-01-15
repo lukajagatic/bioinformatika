@@ -10,7 +10,7 @@ class CreateContig {
 public:
 	CreateContig();
 	virtual ~CreateContig();
-	vector<Edge> bestContig(vector<Edge>);
+	vector<vector<Edge> > bestContig(vector<Edge>);
 
 };
 
