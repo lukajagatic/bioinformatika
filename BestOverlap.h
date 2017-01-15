@@ -19,7 +19,6 @@ public:
 	virtual ~BestOverlap();
 
 	vector<Edge> createBestOverlap(vector<Edge>);
-	vector<Edge> createContigs(vector<Edge>, int);
 };
 
 #endif /* BESTOVERLAP_H_ */

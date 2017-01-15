@@ -10,6 +10,7 @@
 #include "BestOverlap.h"
 #include "Edge.h"
 #include "ContigMaker.h"
+#include "CreateContig.h"
 
 #include <stdlib.h>
 #include <stdexcept>
@@ -51,24 +52,8 @@ int main(int argc, char *argv[]) {
 //				<< ev[i].orientationB << " " << ev[i].bStart << " "
 //				<< ev[i].bEnd << " " << ev[i].bLength << "\n";
 //	}
-	map<int, vector<Edge> > kontizi;
-	for (int var = 0; var < ev.size(); var++) {
-		if (ev[var].idA != ev[var + 1].idA) {
-			vector<Edge> edgv = bo->createContigs(ev, var);
-			kontizi.insert(
-					pair<int, vector<Edge> >(ev[var].idA,
-							bo->createContigs(ev, var)));
-		}
-
-	}
-	std::map<int, vector<Edge> >::iterator it1;
-
-//	std::map<int, vector<Edge> >::iterator it1;
-//
-//	for (it1 = kontizi.begin(); it1 != kontizi.end(); it1++) {
-//		std::cout <<it1->first<< "\t"<< it1->second.size()<< '\n';
-//	}
-
+	CreateContig *cc = new CreateContig;
+	vector<Edge> bestContig = cc->bestContig(ev);
 	exit(0);
 
 }
