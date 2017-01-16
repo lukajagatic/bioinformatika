@@ -16,7 +16,7 @@ overlapsfile - put do datoteke gdje su pohranjeni overlapi. U .mhap formatu
 errorprag - prag kvalitete očitanja ispod kojeg se preklapanja odbacuju <0,1>
 
 
-The MIT License (MIT)
+# The MIT License (MIT)
 
 Copyright (c) 2016 lukajagatic
 
