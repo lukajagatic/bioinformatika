@@ -78,6 +78,10 @@ string SequenceMaker::makeSequence(string corr_reads,
 	int aHang = 0;
 	string pcontig;
 
+	for (int i = 1; i < bridovi.size(); i++) {
+		cout << bridovi[i].second.idA << " " << bridovi[i].second.idB << endl;
+	}
+
 	loadReads(corr_reads);
 
 	pbrid = bridovi[idCenter].second;

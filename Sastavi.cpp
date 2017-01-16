@@ -149,6 +149,7 @@ void Sastavi::recursionLeft(int idB) {
 			return;
 		}
 		if (ifLeftB(par.second)) {
+			make_pair(rAlign,par.second);
 			if (par.second.orientationB == 1) {
 				rAlign = true;
 				pushOrientation(ret);

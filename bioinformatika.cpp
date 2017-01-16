@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include <string>
+#include <sys/time.h>
 #include <map>
 #include <algorithm>
 #include "Sastavi.h"
@@ -21,6 +22,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+
+	double start = clock();
 
 	string input_file = "";
 	string corr_reads = "";
@@ -46,13 +49,18 @@ int main(int argc, char *argv[]) {
 		if (i > 3)
 			throw runtime_error("Too many arguments");
 	}
+
 	MhapFormatter *mf = new MhapFormatter;
 	mf->filter(input_file, error_threshold);
+
+	double lap1 = clock();
 
 	vector<Edge> edges = mf->getEdges();
 
 	BestOverlap *bo = new BestOverlap;
 	vector<Edge> ev = bo->createBestOverlap(edges);
+
+	double lap2 = clock();
 
 	Sastavi ss;
 	vector<pair<bool, Edge> > testVektor;
@@ -68,6 +76,8 @@ int main(int argc, char *argv[]) {
 	myfile1 << "> idd=1 \n";
 	myfile1 << sequence;
 	myfile1.close();
+
+	double end = clock();
 
 	/*
 	 Edge brid1;
@@ -194,6 +204,13 @@ int main(int argc, char *argv[]) {
 
 	 }
 	 */
+
+
+	cout<<"\nTrajanja programa:"<<std::endl;
+    	cout<<"Ucitavanje: "<<(double)(lap1-start)/(double)CLOCKS_PER_SEC<<" s"<<std::endl;
+    	cout<<"Kreiranje grafa (kompresija): "<<(double)(lap2-lap1)/(double)CLOCKS_PER_SEC<<" s"<<std::endl;
+    	cout<<"Formiranje contiga i ispis rezultata u datoteku: "<<(double)(end-lap2)/(double)CLOCKS_PER_SEC<<" s"<<std::endl;
+	cout<<"Ukupno vrijeme: "<<(double)(double)(end-start)/(double)CLOCKS_PER_SEC<<" s"<<std::endl;
 
 	exit(0);
 
