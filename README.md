@@ -1,16 +1,14 @@
 # bioinformatika
 Projekt iz kolegija Bioinformatika na FERu, http://www.fer.unizg.hr/predmet/bio/
 
-Linux install:
-
+# Installation for Linux:
 git clone https://github.com/lukajagatic/bioinformatika.git
 
 cd bioinformatika
 
 make
 
-Run:
-
+# Run:
 ./bioinformatika <overlapsfile> <errorprag>
 
 overlapsfile - put do datoteke gdje su pohranjeni overlapi. U .mhap formatu
