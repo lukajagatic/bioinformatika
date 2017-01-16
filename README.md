@@ -1,5 +1,6 @@
 # bioinformatika
 Projekt iz kolegija Bioinformatika na FERu, http://www.fer.unizg.hr/predmet/bio/
+
 Marko Gudelj, Luka Jagatić, Simon Knežević
 
 # Installation for Linux:
