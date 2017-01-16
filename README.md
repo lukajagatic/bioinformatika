@@ -9,7 +9,7 @@ cd bioinformatika
 make
 
 # Run:
-./bioinformatika /<overlapsfile/> /<errorprag/>
+./bioinformatika [overlapsfile] [errorprag]
 
 overlapsfile - put do datoteke gdje su pohranjeni overlapi. U .mhap formatu
 
