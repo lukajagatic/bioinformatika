@@ -4,7 +4,7 @@ OBJS =		bioinformatika.o
 
 LIBS =
 
-TARGET =	bioinformatika MhapFormatter.cpp Edge.cpp BestOverlap.cpp SequenceMaker.cpp CreateContig.cpp
+TARGET =	bioinformatika MhapFormatter.cpp Edge.cpp BestOverlap.cpp SequenceMaker.cpp Sastavi.cpp
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)

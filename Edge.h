@@ -9,7 +9,7 @@
 #define EDGE_H_
 
 #include <iostream>
-
+#include <string>
 class Edge {
 public:
 	Edge();
@@ -32,6 +32,8 @@ public:
 	int overlapLength;
 	int orientationA;
 	int orientationB;
+
+
 };
 
 #endif /* EDGE_H_ */

@@ -45,6 +45,7 @@ void SequenceMaker::loadReads(string corr_reads) {
 	} else {
 		cout << "Nesto";
 	}
+	myfile.close();
 }
 
 string SequenceMaker::rComplement(string str) {
@@ -67,45 +68,74 @@ string SequenceMaker::rComplement(string str) {
 	return com;
 }
 
-string SequenceMaker::makeSequence(string corr_reads, vector<Edge> bridovi) {
+string SequenceMaker::makeSequence(string corr_reads,
+		vector<pair<bool, Edge> > bridovi) {
 	string sequence;
-
+	bool rAlign;
+	rAlign = false;
 	int idCenter = 0;
 	Edge pbrid;
-
+	int aHang = 0;
 	string pcontig;
 
 	loadReads(corr_reads);
 
-	pbrid = bridovi[idCenter];
+	pbrid = bridovi[idCenter].second;
+	rAlign = bridovi[idCenter].first;
 	pcontig = reads[pbrid.idA - 1];
 	sequence = pcontig;
 
 	pcontig = reads[pbrid.idB - 1];
 
 	while (true) {
-			cout << "\n  aHangMinus:" << pbrid.ahangMinus << " aHangPlus:" << pbrid.ahangPlus << endl;
-		if (pbrid.ahangMinus > pbrid.ahangPlus) {
-			cout << "Spajam Desno" << pbrid.idA << "+" << pbrid.idB << endl;
-			if (pbrid.orientationB == 1) {
-				sequence += rComplement(pcontig.substr(0, pbrid.bStart)) ;
-			} else {
-				sequence += pcontig.substr(pbrid.bEnd, pbrid.bLength) ;
-			}
-		} else {
-			cout << "Spajam Lijevo" << pbrid.idA << "+" << pbrid.idB << endl;
+		//Reverse Aligned
+		if (!rAlign) {
 
-			if (pbrid.orientationB == 1) {
-				sequence = rComplement(pcontig.substr(pbrid.bEnd, pbrid.bLength)) + sequence;
+			if (pbrid.ahangMinus > pbrid.ahangPlus) {
+
+				if (pbrid.orientationB == 1) {
+					sequence += rComplement(pcontig.substr(0, pbrid.bStart));
+				} else {
+					sequence += pcontig.substr(pbrid.bEnd, pbrid.bLength);
+				}
 			} else {
-				sequence = pcontig.substr(0, pbrid.bStart) + sequence;
+
+				if (pbrid.orientationB == 1) {
+					sequence = rComplement(
+							pcontig.substr(pbrid.bEnd, pbrid.bLength))
+							+ sequence;
+				} else {
+					sequence = pcontig.substr(0, pbrid.bStart) + sequence;
+				}
+			}
+			// Ako je reverse onda se spaja na suprotnu stranu od dobivene
+		} else {
+
+			if (pbrid.ahangMinus > pbrid.ahangPlus) {
+				if (pbrid.orientationB == 1) {
+					sequence = pcontig.substr(0, pbrid.bStart) + sequence;
+				} else {
+					sequence = rComplement(
+							pcontig.substr(pbrid.bEnd, pbrid.bLength))
+							+ sequence;
+				}
+			} else {
+
+				if (pbrid.orientationB == 0) {
+
+					sequence += pcontig.substr(pbrid.bEnd, pbrid.bLength);
+				} else {
+
+					sequence += rComplement(pcontig.substr(0, pbrid.bStart));
+				}
 			}
 		}
 		idCenter++;
-		if(idCenter == bridovi.size()){
+		if (idCenter == bridovi.size()) {
 			break;
 		}
-		pbrid = bridovi[idCenter];
+		pbrid = bridovi[idCenter].second;
+		rAlign = bridovi[idCenter].first;
 		pcontig = reads[pbrid.idB - 1];
 	}
 

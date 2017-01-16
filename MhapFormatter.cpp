@@ -14,12 +14,12 @@
 #include <sstream>
 
 MhapFormatter::MhapFormatter() {
-	// TODO Auto-generated constructor stub
+
 
 }
 
 MhapFormatter::~MhapFormatter() {
-	// TODO Auto-generated destructor stub
+
 }
 
 vector<Edge> edges;

@@ -13,7 +13,7 @@ class SequenceMaker
     public:
     	SequenceMaker();
         virtual ~SequenceMaker();
-        string makeSequence(string, vector<Edge>);
+        string makeSequence(string, vector<pair<bool, Edge> >);
         string rComplement(string);
         void loadReads(string);
 
