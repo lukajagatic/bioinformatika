@@ -11,9 +11,11 @@ cd bioinformatika
 make
 
 # Run:
-./bioinformatika [overlapsfile] [errorprag]
+./bioinformatika [overlapsfile] [readsfile] [errorprag]
 
-overlapsfile - put do datoteke gdje su pohranjeni overlapi. U .mhap formatu
+overlapsfile - put do datoteke gdje su pohranjeni overlapi u .mhap formatu
+
+readsfile - put do datoteke gdje su pohranjena očitanja u .fasta formatu
 
 errorprag - prag kvalitete očitanja ispod kojeg se preklapanja odbacuju <0,1>
 
